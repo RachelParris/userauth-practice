@@ -15,6 +15,7 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(express.static('./public'));
 
 require('./routes/userRoutes')(app);
+require('./routes/htmlRoutes')(app);
 
 
 const PORT = config.port;

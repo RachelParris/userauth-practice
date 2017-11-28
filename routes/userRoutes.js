@@ -10,7 +10,9 @@ app.get('/', function (req, res) {
 // a-z, A-Z, 0-9, - or _
 
 // POST route for creating a new user
-app.post('/register', authentication.register);
+app.post('/register',
+authentication.passwordMatch,
+authentication.register);
 
 app.post('/login', authentication.login);
 }

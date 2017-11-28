@@ -8,6 +8,14 @@ module.exports = function(sequelize, DataTypes) {
         len: [6, 20]
       }
     },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      unique: true,
+      validate: {
+        len: [6,100]
+      }
+    },
     password: {
       type: DataTypes.TEXT,
       allowNull: false,

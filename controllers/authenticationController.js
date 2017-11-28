@@ -3,6 +3,13 @@ const db = require('../models');
 
 module.exports = {
   // POST route for creating a new user
+  passwordMatch: function (req, res, next) {
+    if (req.body.password === req.body.passwordMatch) {
+      next();
+    } else {
+      res.status(401).send('Passwords do not match');
+    }
+  },
   register: function (req, res) {
     bcrypt.genSalt(10, function (err, salt) {
       if (err) {
@@ -15,10 +22,11 @@ module.exports = {
           // Store hash in your password db
           db.User.create({
             username: req.body.username,
+            email: req.body.email,
             password: hash
           })
           .then(function () {
-            res.status(200).send({'status': 'Success!'});
+            res.status(200).redirect('/profile');
           })
           .catch(function (err) {
             res.status(400).send({
@@ -30,7 +38,6 @@ module.exports = {
       }
   })
 },
-
   // TODO validate password matches username in db
   // POST route for user login
   login: function (req, res, next) {
@@ -45,10 +52,7 @@ module.exports = {
         console.log('No user found');
       }
 
-      res.status(200).send({
-        id: user.id,
-        username: user.username
-      })
+      res.status(200).redirect('/profile');
     })
     .catch(function (err) {
       res.status(400).send({'status': 'Username not found.'});
