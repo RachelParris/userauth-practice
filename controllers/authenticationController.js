@@ -2,19 +2,18 @@ const bcrypt = require('bcrypt');
 const db = require('../models');
 
 module.exports = {
-  // POST route for creating a new user
   passwordMatch: function (req, res, next) {
     if (req.body.password === req.body.passwordMatch) {
       next();
     } else {
-      res.status(401).send('Passwords do not match');
+      res.status(401).send('The password you have entered does not match.');
     }
   },
   register: function (req, res) {
     bcrypt.genSalt(10, function (err, salt) {
       if (err) {
         res.send({
-          status: 'Unable to create username with password provided',
+          status: 'Unable to create account.',
           error: err
         })
       } else {
@@ -26,11 +25,10 @@ module.exports = {
             password: hash
           })
           .then(function () {
-            res.status(200).redirect('/profile');
+            res.status(200).redirect('/login');
           })
           .catch(function (err) {
             res.status(400).send({
-              'status': 'Something went wrong.',
               'error': 'This username is already taken.'
             });
           });
@@ -51,11 +49,10 @@ module.exports = {
       if (!user) {
         console.log('No user found');
       }
-
-      res.status(200).redirect('/profile');
+      res.status(200).redirect('/app/profile');
     })
     .catch(function (err) {
-      res.status(400).send({'status': 'Username not found.'});
+      res.status(400).send({'status': 'Username or password is not valid.'});
     });
   }
 }

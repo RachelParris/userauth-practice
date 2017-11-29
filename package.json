@@ -2,14 +2,22 @@
   "name": "project2",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js --exec  \"npm run lint && node\"",
-    "lint": "eslint src/**/*.js",
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RachelParris/userauth.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RachelParris/userauth/issues"
+  },
+  "homepage": "https://github.com/RachelParris/userauth#readme",
   "dependencies": {
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
